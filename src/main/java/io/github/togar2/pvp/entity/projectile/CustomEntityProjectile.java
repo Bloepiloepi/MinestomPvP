@@ -14,6 +14,7 @@ import net.minestom.server.event.entity.projectile.ProjectileCollideWithEntityEv
 import net.minestom.server.event.entity.projectile.ProjectileUncollideEvent;
 import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.utils.chunk.ChunkCache;
 import net.minestom.server.utils.chunk.ChunkUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -212,8 +213,15 @@ public class CustomEntityProjectile extends Entity {
 		
 		if (!isStuck()) {
 			Vec diff = velocity.div(ServerFlag.SERVER_TICKS_PER_SECOND);
+			// Prevent entity infinitely in the void
+			if(instance.isInVoid(position)) {
+				scheduler().scheduleNextProcess(this::remove);
+				return;
+			}
+            ChunkCache blockGetter = new ChunkCache(instance, instance.getChunkAt(position), Block.AIR);
+
 			PhysicsResult physicsResult = ProjectileUtil.simulateMovement(position, diff, POINT_BOX,
-					instance.getWorldBorder(), instance, hasPhysics, previousPhysicsResult, true);
+					instance.getWorldBorder(), blockGetter, hasPhysics, previousPhysicsResult, true);
 			this.previousPhysicsResult = physicsResult;
 			
 			Pos newPosition = physicsResult.newPosition();
