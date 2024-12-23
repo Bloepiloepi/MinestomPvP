@@ -2,13 +2,12 @@ package io.github.togar2.pvp.feature.totem;
 
 import io.github.togar2.pvp.damage.DamageTypeInfo;
 import io.github.togar2.pvp.events.TotemUseEvent;
-import io.github.togar2.pvp.feature.CombatFeature;
 import io.github.togar2.pvp.feature.FeatureType;
 import io.github.togar2.pvp.feature.config.DefinedFeature;
 import io.github.togar2.pvp.utils.PotionFlags;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.LivingEntity;
-import net.minestom.server.entity.Player;
+import net.minestom.server.entity.PlayerHand;
 import net.minestom.server.entity.damage.DamageType;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.item.ItemStack;
@@ -19,7 +18,7 @@ import net.minestom.server.potion.PotionEffect;
 /**
  * Vanilla implementation of {@link TotemFeature}
  */
-public class VanillaTotemFeature implements TotemFeature, CombatFeature {
+public class VanillaTotemFeature implements TotemFeature {
 	public static final DefinedFeature<VanillaTotemFeature> DEFINED = new DefinedFeature<>(
 			FeatureType.TOTEM, configuration -> new VanillaTotemFeature()
 	);
@@ -29,7 +28,7 @@ public class VanillaTotemFeature implements TotemFeature, CombatFeature {
 		if (DamageTypeInfo.of(MinecraftServer.getDamageTypeRegistry().getKey(type)).outOfWorld()) return false;
 		
 		boolean hasTotem = false;
-		for (Player.Hand hand : Player.Hand.values()) {
+		for (PlayerHand hand : PlayerHand.values()) {
 			ItemStack stack = entity.getItemInHand(hand);
 			if (stack.material() == Material.TOTEM_OF_UNDYING) {
 				TotemUseEvent totemUseEvent = new TotemUseEvent(entity, hand);

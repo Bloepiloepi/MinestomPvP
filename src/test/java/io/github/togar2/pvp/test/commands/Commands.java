@@ -8,8 +8,6 @@ public class Commands {
 		CommandManager commandManager = MinecraftServer.getCommandManager();
 		
 		commandManager.register(new GameModeCommand());
-		//commandManager.register(new NickCommand());
-		commandManager.register(new SkinCommand());
 		commandManager.register(new DamageCommand());
 		commandManager.register(new ClearCommand());
 	}

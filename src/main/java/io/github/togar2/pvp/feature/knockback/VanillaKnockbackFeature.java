@@ -2,7 +2,6 @@ package io.github.togar2.pvp.feature.knockback;
 
 import io.github.togar2.pvp.events.EntityKnockbackEvent;
 import io.github.togar2.pvp.events.LegacyKnockbackEvent;
-import io.github.togar2.pvp.feature.CombatFeature;
 import io.github.togar2.pvp.feature.FeatureType;
 import io.github.togar2.pvp.feature.config.DefinedFeature;
 import io.github.togar2.pvp.feature.config.FeatureConfiguration;
@@ -24,7 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Vanilla implementation of {@link KnockbackFeature}
  */
-public class VanillaKnockbackFeature implements KnockbackFeature, CombatFeature {
+public class VanillaKnockbackFeature implements KnockbackFeature {
 	public static final DefinedFeature<VanillaKnockbackFeature> DEFINED = new DefinedFeature<>(
 			FeatureType.KNOCKBACK, VanillaKnockbackFeature::new,
 			FeatureType.VERSION
@@ -98,7 +97,7 @@ public class VanillaKnockbackFeature implements KnockbackFeature, CombatFeature 
 		
 		LegacyKnockbackSettings settings = legacyKnockbackEvent.getSettings();
 		
-		double kbResistance = target.getAttributeValue(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
+		double kbResistance = target.getAttributeValue(Attribute.KNOCKBACK_RESISTANCE);
 		double horizontal = settings.horizontal() * (1 - kbResistance) * knockback;
 		double vertical = settings.vertical() * (1 - kbResistance) * knockback;
 		Vec horizontalModifier = new Vec(dx, dz).normalize().mul(horizontal);

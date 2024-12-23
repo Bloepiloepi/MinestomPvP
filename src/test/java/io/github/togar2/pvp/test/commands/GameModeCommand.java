@@ -19,8 +19,8 @@ public class GameModeCommand extends Command {
 		mode.setFormat(ArgumentEnum.Format.LOWER_CASED);
 		
 		addSyntax((sender, args) -> {
-			if (!sender.isPlayer()) return;
-			sender.asPlayer().setGameMode(args.get(mode));
+			if (!(sender instanceof Player player)) return;
+			player.setGameMode(args.get(mode));
 		}, mode);
 		
 		addSyntax((sender, args) -> {

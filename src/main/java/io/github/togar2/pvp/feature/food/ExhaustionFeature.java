@@ -19,7 +19,7 @@ public interface ExhaustionFeature extends CombatFeature {
 		public void addDamageExhaustion(Player player, DamageType type) {}
 		
 		@Override
-		public void applyHungerEffect(Player player, byte amplifier) {}
+		public void applyHungerEffect(Player player, int amplifier) {}
 	};
 	
 	void addExhaustion(Player player, float exhaustion);
@@ -46,5 +46,5 @@ public interface ExhaustionFeature extends CombatFeature {
 	 * @param player the player to apply the effect to
 	 * @param amplifier the amplifier of the effect
 	 */
-	void applyHungerEffect(Player player, byte amplifier);
+	void applyHungerEffect(Player player, int amplifier);
 }

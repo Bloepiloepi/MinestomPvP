@@ -1,5 +1,9 @@
 package io.github.togar2.pvp.player;
 
+import java.util.function.Function;
+
+import org.jetbrains.annotations.NotNull;
+
 import net.minestom.server.ServerFlag;
 import net.minestom.server.collision.Aerodynamics;
 import net.minestom.server.collision.PhysicsResult;
@@ -10,27 +14,23 @@ import net.minestom.server.entity.attribute.Attribute;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.entity.EntityVelocityEvent;
 import net.minestom.server.instance.Chunk;
+import net.minestom.server.network.player.GameProfile;
 import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.potion.PotionEffect;
 import net.minestom.server.potion.TimedPotion;
 import net.minestom.server.utils.chunk.ChunkUtils;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
-import java.util.function.Function;
-
-@SuppressWarnings("UnstableApiUsage")
 public class CombatPlayerImpl extends Player implements CombatPlayer {
 	private boolean velocityUpdate = false;
 	private PhysicsResult previousPhysicsResult = null;
 	
-	public CombatPlayerImpl(@NotNull UUID uuid, @NotNull String username, @NotNull PlayerConnection playerConnection) {
-		super(uuid, username, playerConnection);
+	public CombatPlayerImpl(@NotNull PlayerConnection playerConnection, GameProfile profile) {
+		super(playerConnection, profile);
 		
 		// Default value is 2.0, but base value is 1.0 for players in vanilla
 		// This is difficult to implement as a feature and assumed everyone using
 		// this extension would want it to match vanilla
-		getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(1.0);
+		getAttribute(Attribute.ATTACK_DAMAGE).setBaseValue(1.0);
 	}
 	
 	@Override

@@ -5,7 +5,6 @@ import io.github.togar2.pvp.feature.enchantment.EnchantmentFeature;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.LivingEntity;
-import net.minestom.server.entity.metadata.projectile.ArrowMeta;
 import net.minestom.server.item.ItemComponent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
@@ -49,30 +48,11 @@ public class Arrow extends AbstractArrow {
 	
 	public void setItemStack(ItemStack itemStack) {
 		this.itemStack = itemStack;
-		updateColor();
 	}
 	
 	@Override
 	protected void onHurt(LivingEntity entity) {
 		effectFeature.addArrowEffects(entity, this);
-	}
-	
-	private void updateColor() {
-		PotionContents potionContents = itemStack.get(ItemComponent.POTION_CONTENTS);
-		if (potionContents == null || potionContents.equals(PotionContents.EMPTY)) {
-			setColor(-1);
-			return;
-		}
-		
-		setColor(effectFeature.getPotionColor(potionContents));
-	}
-	
-	private void setColor(int color) {
-		((ArrowMeta) getEntityMeta()).setColor(color);
-	}
-	
-	private int getColor() {
-		return ((ArrowMeta) getEntityMeta()).getColor();
 	}
 	
 	public @NotNull PotionContents getPotion() {
@@ -81,7 +61,6 @@ public class Arrow extends AbstractArrow {
 	
 	public void setPotion(@NotNull PotionContents potion) {
 		this.itemStack = ItemStack.of(Material.TIPPED_ARROW).with(ItemComponent.POTION_CONTENTS, potion);
-		updateColor();
 	}
 	
 	public void addArrowEffect(CustomPotionEffect effect) {
@@ -90,6 +69,5 @@ public class Arrow extends AbstractArrow {
 			list.add(effect);
 			return new PotionContents(potionContents.potion(), potionContents.customColor(), list);
 		});
-		updateColor();
 	}
 }

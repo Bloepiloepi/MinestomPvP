@@ -268,6 +268,9 @@ public class CustomEntityProjectile extends Entity {
 					setNoGravity(true);
 					this.collisionDirection = collisionDirection;
 					shouldRemove.set(onStuck());
+					scheduler().scheduleNextProcess(() -> {
+						this.setVelocity(Vec.ZERO);
+					});
 				});
 				
 				if (shouldRemove.get()) {

@@ -4,6 +4,10 @@
 /build/
 /build/classes/java/main/
 /build/classes/java/test/
+.settings/
+.project
+.classpath
+bin/
 
 # Minestom
 /.minestom_tmp/

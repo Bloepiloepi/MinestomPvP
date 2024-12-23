@@ -79,19 +79,19 @@ public enum ArmorMaterial {
 		// Remove attributes from previous armor
 		if (oldMaterial != null && hasDefaultAttributes(oldStack)) {
 			if (slot == getRequiredSlot(oldStack.material())) {
-				entity.getAttribute(Attribute.GENERIC_ARMOR).removeModifier(modifierId);
-				entity.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).removeModifier(modifierId);
-				entity.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).removeModifier(modifierId);
+				entity.getAttribute(Attribute.ARMOR).removeModifier(modifierId);
+				entity.getAttribute(Attribute.ARMOR_TOUGHNESS).removeModifier(modifierId);
+				entity.getAttribute(Attribute.KNOCKBACK_RESISTANCE).removeModifier(modifierId);
 			}
 		}
 		
 		// Add attributes from new armor
 		if (newMaterial != null && hasDefaultAttributes(newStack)) {
 			if (slot == getRequiredSlot(newStack.material())) {
-				entity.getAttribute(Attribute.GENERIC_ARMOR).addModifier(new AttributeModifier(modifierId, newMaterial.getProtectionAmount(slot, version), AttributeOperation.ADD_VALUE));
-				entity.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).addModifier(new AttributeModifier(modifierId, newMaterial.getToughness(), AttributeOperation.ADD_VALUE));
+				entity.getAttribute(Attribute.ARMOR).addModifier(new AttributeModifier(modifierId, newMaterial.getProtectionAmount(slot, version), AttributeOperation.ADD_VALUE));
+				entity.getAttribute(Attribute.ARMOR_TOUGHNESS).addModifier(new AttributeModifier(modifierId, newMaterial.getToughness(), AttributeOperation.ADD_VALUE));
 				if (newMaterial.getKnockbackResistance() > 0) {
-					entity.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).addModifier(new AttributeModifier(modifierId, newMaterial.getKnockbackResistance(), AttributeOperation.ADD_VALUE));
+					entity.getAttribute(Attribute.KNOCKBACK_RESISTANCE).addModifier(new AttributeModifier(modifierId, newMaterial.getKnockbackResistance(), AttributeOperation.ADD_VALUE));
 				}
 			}
 		}

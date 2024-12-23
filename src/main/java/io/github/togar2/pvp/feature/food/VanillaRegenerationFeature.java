@@ -56,7 +56,7 @@ public class VanillaRegenerationFeature implements RegenerationFeature, Registra
 	}
 	
 	protected void onTick(Player player) {
-		if (!player.getGameMode().canTakeDamage()) return;
+		if (player.getGameMode().invulnerable()) return;
 		Difficulty difficulty = difficultyFeature.getValue(player);
 		
 		int food = player.getFood();
@@ -64,7 +64,7 @@ public class VanillaRegenerationFeature implements RegenerationFeature, Registra
 		int starvationTicks = player.getTag(STARVATION_TICKS);
 		
 		if (version.modern() && player.getFoodSaturation() > 0 && health > 0
-				&& health < player.getAttributeValue(Attribute.GENERIC_MAX_HEALTH) && food >= 20) {
+				&& health < player.getAttributeValue(Attribute.MAX_HEALTH) && food >= 20) {
 			starvationTicks++;
 			if (starvationTicks >= 10) {
 				float amount = Math.min(player.getFoodSaturation(), 6);
@@ -72,7 +72,7 @@ public class VanillaRegenerationFeature implements RegenerationFeature, Registra
 				starvationTicks = 0;
 			}
 		} else if (food >= 18 && health > 0
-				&& health < player.getAttributeValue(Attribute.GENERIC_MAX_HEALTH)) {
+				&& health < player.getAttributeValue(Attribute.MAX_HEALTH)) {
 			starvationTicks++;
 			if (starvationTicks >= 80) {
 				regenerate(player, 1, version.legacy() ? 3 : 6);

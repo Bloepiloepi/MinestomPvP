@@ -69,10 +69,10 @@ public enum Tool {
 		float finalLegacyAttackDamage = legacyAttackDamage + (toolMaterial == null ? 0 : toolMaterial.getAttackDamage());
 		this.material = Material.fromNamespaceId(this.name().toLowerCase());
 		
-		this.attributeModifiers.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(ModifierId.ATTACK_DAMAGE_MODIFIER_ID, finalAttackDamage, AttributeOperation.ADD_VALUE));
-		this.attributeModifiers.put(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(ModifierId.ATTACK_SPEED_MODIFIER_ID, attackSpeed, AttributeOperation.ADD_VALUE));
+		this.attributeModifiers.put(Attribute.ATTACK_DAMAGE, new AttributeModifier(ModifierId.ATTACK_DAMAGE_MODIFIER_ID, finalAttackDamage, AttributeOperation.ADD_VALUE));
+		this.attributeModifiers.put(Attribute.ATTACK_SPEED, new AttributeModifier(ModifierId.ATTACK_SPEED_MODIFIER_ID, attackSpeed, AttributeOperation.ADD_VALUE));
 		
-		this.legacyAttributeModifiers.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(ModifierId.ATTACK_DAMAGE_MODIFIER_ID, finalLegacyAttackDamage, AttributeOperation.ADD_VALUE));
+		this.legacyAttributeModifiers.put(Attribute.ATTACK_DAMAGE, new AttributeModifier(ModifierId.ATTACK_DAMAGE_MODIFIER_ID, finalLegacyAttackDamage, AttributeOperation.ADD_VALUE));
 	}
 	
 	Tool(@Nullable ToolMaterial toolMaterial, float attackDamage, float legacyAttackDamage, float attackSpeed, boolean isAxe, boolean isSword) {
@@ -90,8 +90,8 @@ public enum Tool {
 		
 		// Remove attributes from previous tool
 		if (oldTool != null && hasDefaultAttributes(oldStack)) {
-			entity.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).removeModifier(ModifierId.ATTACK_DAMAGE_MODIFIER_ID);
-			entity.getAttribute(Attribute.GENERIC_ATTACK_SPEED).removeModifier(ModifierId.ATTACK_SPEED_MODIFIER_ID);
+			entity.getAttribute(Attribute.ATTACK_DAMAGE).removeModifier(ModifierId.ATTACK_DAMAGE_MODIFIER_ID);
+			entity.getAttribute(Attribute.ATTACK_SPEED).removeModifier(ModifierId.ATTACK_SPEED_MODIFIER_ID);
 		}
 		
 		// Add attributes from new tool

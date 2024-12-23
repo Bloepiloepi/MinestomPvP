@@ -1,6 +1,5 @@
 package io.github.togar2.pvp.feature.attack;
 
-import io.github.togar2.pvp.feature.CombatFeature;
 import io.github.togar2.pvp.feature.FeatureType;
 import io.github.togar2.pvp.feature.config.DefinedFeature;
 import io.github.togar2.pvp.feature.config.FeatureConfiguration;
@@ -14,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Vanilla implementation of {@link CriticalFeature}
  */
-public class VanillaCriticalFeature implements CriticalFeature, CombatFeature {
+public class VanillaCriticalFeature implements CriticalFeature {
 	public static final DefinedFeature<VanillaCriticalFeature> DEFINED = new DefinedFeature<>(
 			FeatureType.CRITICAL, VanillaCriticalFeature::new,
 			FeatureType.PLAYER_STATE, FeatureType.VERSION

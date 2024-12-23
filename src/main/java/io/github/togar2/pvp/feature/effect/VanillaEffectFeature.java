@@ -85,7 +85,7 @@ public class VanillaEffectFeature implements EffectFeature, RegistrableFeature {
 				
 				if (durationLeft > 0) {
 					CombatPotionEffect combatPotionEffect = CombatPotionEffects.get(potion.potion().effect());
-					byte amplifier = potion.potion().amplifier();
+					int amplifier = potion.potion().amplifier();
 					
 					if (combatPotionEffect.canApplyUpdateEffect(durationLeft, amplifier)) {
 						combatPotionEffect.applyUpdateEffect(entity, amplifier, exhaustionFeature, foodFeature);
@@ -160,7 +160,7 @@ public class VanillaEffectFeature implements EffectFeature, RegistrableFeature {
 		
 		potions.addAll(customEffects.stream().map((customPotion) ->
 				new Potion(Objects.requireNonNull(customPotion.id()),
-						customPotion.amplifier(), customPotion.duration(),
+						(byte)customPotion.amplifier(), customPotion.duration(),
 						PotionFlags.create(
 								customPotion.isAmbient(),
 								customPotion.showParticles(),
@@ -237,7 +237,7 @@ public class VanillaEffectFeature implements EffectFeature, RegistrableFeature {
 		
 		potionContents.customEffects().stream().map(customPotion ->
 						new Potion(Objects.requireNonNull(customPotion.id()),
-								customPotion.amplifier(), customPotion.duration(),
+								(byte)customPotion.amplifier(), customPotion.duration(),
 								PotionFlags.create(
 										customPotion.isAmbient(),
 										customPotion.showParticles(),

@@ -1,5 +1,8 @@
 package io.github.togar2.pvp.feature.projectile;
 
+import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
+
 import io.github.togar2.pvp.entity.projectile.FishingBobber;
 import io.github.togar2.pvp.events.FishingBobberRetrieveEvent;
 import io.github.togar2.pvp.feature.FeatureType;
@@ -16,6 +19,7 @@ import net.minestom.server.coordinate.Vec;
 import net.minestom.server.entity.EquipmentSlot;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
+import net.minestom.server.entity.PlayerHand;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.EventNode;
 import net.minestom.server.event.entity.EntityShootEvent;
@@ -25,9 +29,6 @@ import net.minestom.server.item.Material;
 import net.minestom.server.sound.SoundEvent;
 import net.minestom.server.tag.Tag;
 import net.minestom.server.utils.MathUtils;
-
-import java.util.Objects;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Vanilla implementation of {@link FishingRodFeature}
@@ -70,7 +71,7 @@ public class VanillaFishingRodFeature implements FishingRodFeature, RegistrableF
 				EventDispatcher.callCancellable(retrieveEvent, () -> {
 					int durability = bobber.retrieve();
 					if (player.getGameMode() != GameMode.CREATIVE)
-						itemDamageFeature.damageEquipment(player, event.getHand() == Player.Hand.MAIN ?
+						itemDamageFeature.damageEquipment(player, event.getHand() == PlayerHand.MAIN ?
 								EquipmentSlot.MAIN_HAND : EquipmentSlot.OFF_HAND, durability);
 					
 					ViewUtil.viewersAndSelf(player).playSound(Sound.sound(

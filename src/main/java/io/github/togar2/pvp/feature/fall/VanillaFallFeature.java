@@ -1,6 +1,5 @@
 package io.github.togar2.pvp.feature.fall;
 
-import io.github.togar2.pvp.feature.CombatFeature;
 import io.github.togar2.pvp.feature.FeatureType;
 import io.github.togar2.pvp.feature.RegistrableFeature;
 import io.github.togar2.pvp.feature.config.DefinedFeature;
@@ -31,7 +30,7 @@ import net.minestom.server.tag.Tag;
 /**
  * Vanilla implementation of {@link FallFeature}
  */
-public class VanillaFallFeature implements FallFeature, CombatFeature, RegistrableFeature {
+public class VanillaFallFeature implements FallFeature, RegistrableFeature {
 	public static final DefinedFeature<VanillaFallFeature> DEFINED = new DefinedFeature<>(
 			FeatureType.FALL, VanillaFallFeature::new,
 			VanillaFallFeature::initPlayer,
@@ -119,7 +118,7 @@ public class VanillaFallFeature implements FallFeature, CombatFeature, Registrab
 			entity.removeTag(EXTRA_FALL_PARTICLES);
 		}
 		
-		double safeFallDistance = entity.getAttributeValue(Attribute.GENERIC_SAFE_FALL_DISTANCE);
+		double safeFallDistance = entity.getAttributeValue(Attribute.SAFE_FALL_DISTANCE);
 		if (fallDistance > safeFallDistance) {
 			if (!block.isAir()) {
 				double damageDistance = Math.ceil(fallDistance - safeFallDistance);
@@ -127,7 +126,7 @@ public class VanillaFallFeature implements FallFeature, CombatFeature, Registrab
 				int particleCount = (int) (150 * particleMultiplier);
 				
 				entity.sendPacketToViewersAndSelf(new ParticlePacket(
-						Particle.BLOCK.withBlock(block),
+						Particle.BLOCK.withBlock(block), false,
 						false,
 						newPos.x(), newPos.y(), newPos.z(),
 						0, 0, 0,
@@ -138,7 +137,7 @@ public class VanillaFallFeature implements FallFeature, CombatFeature, Registrab
 		
 		entity.setTag(FALL_DISTANCE, 0.0);
 		
-		if (entity instanceof Player player && !player.getGameMode().canTakeDamage()) return;
+		if (entity instanceof Player player && player.getGameMode().invulnerable()) return;
 		int damage = getFallDamage(entity, fallDistance);
 		if (damage > 0) {
 			playFallSound(entity, damage);
@@ -160,8 +159,8 @@ public class VanillaFallFeature implements FallFeature, CombatFeature, Registrab
 	
 	@Override
 	public int getFallDamage(LivingEntity entity, double fallDistance) {
-		double safeFallDistance = entity.getAttributeValue(Attribute.GENERIC_SAFE_FALL_DISTANCE);
-		return (int) Math.ceil((fallDistance - safeFallDistance) * entity.getAttributeValue(Attribute.GENERIC_FALL_DAMAGE_MULTIPLIER));
+		double safeFallDistance = entity.getAttributeValue(Attribute.SAFE_FALL_DISTANCE);
+		return (int) Math.ceil((fallDistance - safeFallDistance) * entity.getAttributeValue(Attribute.FALL_DAMAGE_MULTIPLIER));
 	}
 	
 	@Override

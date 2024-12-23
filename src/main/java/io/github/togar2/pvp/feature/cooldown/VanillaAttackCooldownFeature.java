@@ -71,6 +71,6 @@ public class VanillaAttackCooldownFeature implements AttackCooldownFeature, Regi
 	}
 	
 	protected double getAttackCooldownProgressPerTick(Player player) {
-		return (1 / player.getAttributeValue(Attribute.GENERIC_ATTACK_SPEED)) * 20;
+		return (1 / player.getAttributeValue(Attribute.ATTACK_SPEED)) * 20;
 	}
 }

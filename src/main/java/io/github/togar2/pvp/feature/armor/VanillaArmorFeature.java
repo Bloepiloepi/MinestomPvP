@@ -1,7 +1,6 @@
 package io.github.togar2.pvp.feature.armor;
 
 import io.github.togar2.pvp.damage.DamageTypeInfo;
-import io.github.togar2.pvp.feature.CombatFeature;
 import io.github.togar2.pvp.feature.FeatureType;
 import io.github.togar2.pvp.feature.config.DefinedFeature;
 import io.github.togar2.pvp.feature.config.FeatureConfiguration;
@@ -18,7 +17,7 @@ import net.minestom.server.utils.MathUtils;
 /**
  * Vanilla implementation of {@link ArmorFeature}
  */
-public class VanillaArmorFeature implements ArmorFeature, CombatFeature {
+public class VanillaArmorFeature implements ArmorFeature {
 	public static final DefinedFeature<VanillaArmorFeature> DEFINED = new DefinedFeature<>(
 			FeatureType.ARMOR, VanillaArmorFeature::new,
 			FeatureType.ENCHANTMENT, FeatureType.VERSION
@@ -48,14 +47,14 @@ public class VanillaArmorFeature implements ArmorFeature, CombatFeature {
 	protected float getDamageWithArmor(LivingEntity entity, DamageTypeInfo typeInfo, float amount) {
 		if (typeInfo.bypassesArmor()) return amount;
 		
-		double armorValue = entity.getAttributeValue(Attribute.GENERIC_ARMOR);
+		double armorValue = entity.getAttributeValue(Attribute.ARMOR);
 		if (version.legacy()) {
 			int armorMultiplier = 25 - (int) armorValue;
 			return (amount * (float) armorMultiplier) / 25;
 		} else {
 			return getDamageLeft(
 					amount, (float) Math.floor(armorValue),
-					(float) entity.getAttributeValue(Attribute.GENERIC_ARMOR_TOUGHNESS)
+					(float) entity.getAttributeValue(Attribute.ARMOR_TOUGHNESS)
 			);
 		}
 	}

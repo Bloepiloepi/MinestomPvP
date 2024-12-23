@@ -29,6 +29,7 @@ public record DamageTypeInfo(boolean damagesHelmet, boolean bypassesArmor, boole
 	
 	//TODO check source and add missing
 	public static final Map<DynamicRegistry.Key<DamageType>, DamageTypeInfo> INFO_MAP = new HashMap<>() {
+		private static final long serialVersionUID = -1415972772651275647L;
 		{
 			put(DamageType.IN_FIRE, new DamageTypeInfo().bypassesArmor(true).fire(true));
 			put(DamageType.ON_FIRE, new DamageTypeInfo().bypassesArmor(true).fire(true));

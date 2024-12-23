@@ -1,15 +1,14 @@
 package io.github.togar2.pvp.entity.explosion;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.github.togar2.pvp.damage.DamageTypeInfo;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.LivingEntity;
 import net.minestom.server.entity.damage.Damage;
 import net.minestom.server.entity.metadata.other.EndCrystalMeta;
 import net.minestom.server.instance.Instance;
-import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.tag.Tag;
-import org.jetbrains.annotations.NotNull;
 
 public class CrystalEntity extends LivingEntity {
 	private final boolean fire;

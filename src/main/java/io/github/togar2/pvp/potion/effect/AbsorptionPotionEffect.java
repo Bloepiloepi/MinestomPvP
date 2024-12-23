@@ -11,7 +11,7 @@ public class AbsorptionPotionEffect extends CombatPotionEffect {
 	}
 	
 	@Override
-	public void onApplied(LivingEntity entity, byte amplifier, CombatVersion version) {
+	public void onApplied(LivingEntity entity, int amplifier, CombatVersion version) {
 		if (entity instanceof Player player) {
 			player.setAdditionalHearts(player.getAdditionalHearts() + (float) (4 * (amplifier + 1)));
 		}
@@ -20,7 +20,7 @@ public class AbsorptionPotionEffect extends CombatPotionEffect {
 	}
 	
 	@Override
-	public void onRemoved(LivingEntity entity, byte amplifier, CombatVersion version) {
+	public void onRemoved(LivingEntity entity, int amplifier, CombatVersion version) {
 		if (entity instanceof Player player) {
 			player.setAdditionalHearts(Math.max(player.getAdditionalHearts() - (float) (4 * (amplifier + 1)), 0));
 		}

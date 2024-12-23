@@ -1,16 +1,18 @@
 package io.github.togar2.pvp.feature.projectile;
 
+import java.util.function.Predicate;
+
+import org.jetbrains.annotations.Nullable;
+
 import io.github.togar2.pvp.entity.projectile.Arrow;
 import io.github.togar2.pvp.feature.FeatureType;
 import io.github.togar2.pvp.feature.config.DefinedFeature;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
+import net.minestom.server.entity.PlayerHand;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.utils.inventory.PlayerInventoryUtils;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Predicate;
 
 /**
  * Vanilla implementation of {@link ProjectileItemFeature}
@@ -58,10 +60,10 @@ public class VanillaProjectileItemFeature implements ProjectileItemFeature {
 	}
 	
 	private static @Nullable ProjectileItem getHeldItem(Player player, Predicate<ItemStack> predicate) {
-		ItemStack stack = player.getItemInHand(Player.Hand.OFF);
+		ItemStack stack = player.getItemInHand(PlayerHand.OFF);
 		if (predicate.test(stack)) return new ProjectileItem(PlayerInventoryUtils.OFFHAND_SLOT, stack);
 		
-		stack = player.getItemInHand(Player.Hand.MAIN);
+		stack = player.getItemInHand(PlayerHand.MAIN);
 		if (predicate.test(stack)) return new ProjectileItem(player.getHeldSlot(), stack);
 		
 		return null;

@@ -160,52 +160,6 @@ public class CombatConfiguration {
 		return result;
 	}
 	
-	/**
-	 * Performs a (recursive) topological sort to make sure all the features
-	 * that are depended on by other features are first in the list
-	 *
-	 * @return the list with ordering
-	 */
-	private List<ConstructableFeature> getBuildOrder() {
-		List<ConstructableFeature> order = new ArrayList<>(features.size());
-		Set<ConstructableFeature> visiting = new HashSet<>();
-		
-		while (true) {
-			// Find unprocessed feature
-			ConstructableFeature unprocessed = null;
-			for (ConstructableFeature feature : features.values()) {
-				if (order.contains(feature)) continue;
-				if (visiting.contains(feature)) continue;
-				unprocessed = feature;
-			}
-			
-			if (unprocessed == null) break;
-			visit(order, visiting, unprocessed);
-		}
-		
-		return order;
-	}
-	
-	private void visit(List<ConstructableFeature> order, Set<ConstructableFeature> visiting, ConstructableFeature current) {
-		if (order.contains(current)) return; // Feature has already been added
-		if (visiting.contains(current))
-			throw new RuntimeException("Configuration has a recursive dependency");
-		
-		if (current instanceof LazyFeatureInit lazy) {
-			visiting.add(current);
-			
-			for (FeatureType<?> dependType : lazy.constructor.dependencies()) {
-				ConstructableFeature dependFeature = lazy.getOverrideOf(dependType);
-				if (dependFeature == null) dependFeature = getFeatureOf(dependType);
-				if (dependFeature != null) visit(order, visiting, dependFeature);
-			}
-			
-			visiting.remove(current);
-		}
-		
-		order.add(current);
-	}
-	
 	private @Nullable ConstructableFeature getFeatureOf(FeatureType<?> type) {
 		return features.get(type);
 	}

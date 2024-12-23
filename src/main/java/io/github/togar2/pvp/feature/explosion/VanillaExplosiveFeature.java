@@ -19,6 +19,7 @@ import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EquipmentSlot;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
+import net.minestom.server.entity.PlayerHand;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.EventNode;
 import net.minestom.server.event.player.PlayerBlockInteractEvent;
@@ -71,7 +72,7 @@ public class VanillaExplosiveFeature implements ExplosiveFeature, RegistrableFea
 			
 			if (player.getGameMode() != GameMode.CREATIVE) {
 				if (stack.material() == Material.FLINT_AND_STEEL) {
-					itemDamageFeature.damageEquipment(player, event.getHand() == Player.Hand.MAIN
+					itemDamageFeature.damageEquipment(player, event.getHand() == PlayerHand.MAIN
 							? EquipmentSlot.MAIN_HAND : EquipmentSlot.OFF_HAND, 1);
 				} else {
 					player.setItemInHand(event.getHand(), stack.consume(1));
@@ -112,7 +113,7 @@ public class VanillaExplosiveFeature implements ExplosiveFeature, RegistrableFea
 			if (!block.compare(Block.RESPAWN_ANCHOR)) return;
 			
 			// Exit if offhand has glowstone but current hand is main, to prevent exploding when it should be charged instead
-			if (event.getHand() == Player.Hand.MAIN
+			if (event.getHand() == PlayerHand.MAIN
 					&& player.getItemInMainHand().material() != Material.GLOWSTONE
 					&& player.getItemInOffHand().material() == Material.GLOWSTONE)
 				return;

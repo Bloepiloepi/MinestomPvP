@@ -46,7 +46,7 @@ public class MinestomPvP {
 	 * @param legacyAttack {@code true} if legacy attack should be enabled
 	 */
 	public static void setLegacyAttack(Player player, boolean legacyAttack) {
-		AttributeInstance speed = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
+		AttributeInstance speed = player.getAttribute(Attribute.ATTACK_SPEED);
 		if (legacyAttack) {
 			speed.setBaseValue(100);
 		} else {

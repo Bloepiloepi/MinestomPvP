@@ -4,7 +4,6 @@ import io.github.togar2.pvp.feature.effect.EffectFeature;
 import io.github.togar2.pvp.utils.EffectUtil;
 import net.minestom.server.collision.BoundingBox;
 import net.minestom.server.coordinate.Pos;
-import net.minestom.server.effects.Effects;
 import net.minestom.server.entity.*;
 import net.minestom.server.entity.metadata.item.ThrownPotionMeta;
 import net.minestom.server.item.ItemComponent;
@@ -12,6 +11,7 @@ import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.item.component.PotionContents;
 import net.minestom.server.potion.Potion;
+import net.minestom.server.worldevent.WorldEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -66,7 +66,7 @@ public class ThrownPotion extends CustomEntityProjectile implements ItemHoldingP
 			}
 		}
 		
-		Effects effect = instantEffect ? Effects.INSTANT_SPLASH : Effects.SPLASH_POTION;
+		WorldEvent effect = instantEffect ? WorldEvent.PARTICLES_INSTANT_POTION_SPLASH : WorldEvent.PARTICLES_SPELL_POTION_SPLASH;
 		EffectUtil.sendNearby(
 				Objects.requireNonNull(getInstance()), effect, position.blockX(),
 				position.blockY(), position.blockZ(), effectFeature.getPotionColor(potionContents),

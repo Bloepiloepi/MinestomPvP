@@ -1,5 +1,8 @@
 package io.github.togar2.pvp.feature.projectile;
 
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import io.github.togar2.pvp.entity.projectile.ThrownTrident;
 import io.github.togar2.pvp.feature.FeatureType;
 import io.github.togar2.pvp.feature.RegistrableFeature;
@@ -18,10 +21,11 @@ import net.minestom.server.entity.EquipmentSlot;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.LivingEntity;
 import net.minestom.server.entity.Player;
+import net.minestom.server.entity.PlayerHand;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.EventNode;
 import net.minestom.server.event.entity.EntityAttackEvent;
-import net.minestom.server.event.item.ItemUpdateStateEvent;
+import net.minestom.server.event.item.PlayerFinishItemUseEvent;
 import net.minestom.server.event.player.PlayerTickEvent;
 import net.minestom.server.event.trait.EntityInstanceEvent;
 import net.minestom.server.instance.EntityTracker;
@@ -31,9 +35,6 @@ import net.minestom.server.item.Material;
 import net.minestom.server.item.enchant.Enchantment;
 import net.minestom.server.sound.SoundEvent;
 import net.minestom.server.tag.Tag;
-
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Vanilla implementation of {@link TridentFeature}
@@ -63,7 +64,7 @@ public class VanillaTridentFeature implements TridentFeature, RegistrableFeature
 	
 	@Override
 	public void init(EventNode<EntityInstanceEvent> node) {
-		node.addListener(ItemUpdateStateEvent.class, event -> {
+		node.addListener(PlayerFinishItemUseEvent.class, event -> {
 			Player player = event.getPlayer();
 			ItemStack stack = event.getItemStack();
 			if (stack.material() != Material.TRIDENT) return;
@@ -74,7 +75,7 @@ public class VanillaTridentFeature implements TridentFeature, RegistrableFeature
 			int riptide = stack.get(ItemComponent.ENCHANTMENTS).level(Enchantment.RIPTIDE);
 			if (riptide > 0 && !FluidUtil.isTouchingWater(player)) return;
 			
-			itemDamageFeature.damageEquipment(player, event.getHand() == Player.Hand.MAIN ?
+			itemDamageFeature.damageEquipment(player, event.getHand() == PlayerHand.MAIN ?
 					EquipmentSlot.MAIN_HAND : EquipmentSlot.OFF_HAND, 1);
 			
 			if (riptide > 0) {

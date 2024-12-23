@@ -48,7 +48,7 @@ public class PvpTest {
 			
 			EntityCreature entity = new EntityCreature(EntityType.ZOMBIE);
 			entity.setInstance(instance, spawn);
-			entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(500);
+			entity.getAttribute(Attribute.MAX_HEALTH).setBaseValue(500);
 			entity.heal();
 			
 			MinecraftServer.getSchedulerManager().buildTask(() -> {

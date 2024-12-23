@@ -19,7 +19,7 @@ public interface FoodFeature extends CombatFeature {
 		public void eat(Player player, ItemStack stack) {}
 		
 		@Override
-		public void applySaturationEffect(Player player, byte amplifier) {}
+		public void applySaturationEffect(Player player, int amplifier) {}
 	};
 	
 	/**
@@ -55,5 +55,5 @@ public interface FoodFeature extends CombatFeature {
 	 * @param player the player to apply the effect to
 	 * @param amplifier the amplifier of the effect
 	 */
-	void applySaturationEffect(Player player, byte amplifier);
+	void applySaturationEffect(Player player, int amplifier);
 }

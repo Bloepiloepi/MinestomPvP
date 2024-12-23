@@ -33,7 +33,7 @@ public class ThrownEnderpearl extends CustomEntityProjectile implements ItemHold
 		
 		for (int i = 0; i < 32; i++) {
 			sendPacketToViewersAndSelf(new ParticlePacket(
-					Particle.PORTAL, false,
+					Particle.PORTAL, false, true,
 					position.x(), position.y() + random.nextDouble() * 2, position.z(),
 					(float) random.nextGaussian(), 0.0F, (float) random.nextGaussian(),
 					0, 1

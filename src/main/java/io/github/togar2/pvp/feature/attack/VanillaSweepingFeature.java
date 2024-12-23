@@ -47,7 +47,7 @@ public class VanillaSweepingFeature implements SweepingFeature {
 		if (!values.strong() || values.critical() || values.sprint() || !attacker.isOnGround()) return false;
 		
 		double lastMoveDistance = attacker.getPreviousPosition().distance(attacker.getPosition()) * 0.6;
-		if (lastMoveDistance >= attacker.getAttributeValue(Attribute.GENERIC_MOVEMENT_SPEED)) return false;
+		if (lastMoveDistance >= attacker.getAttributeValue(Attribute.MOVEMENT_SPEED)) return false;
 		
 		Tool tool = Tool.fromMaterial(attacker.getItemInMainHand().material());
 		return tool != null && tool.isSword();
@@ -92,7 +92,7 @@ public class VanillaSweepingFeature implements SweepingFeature {
 		double z = Math.cos(Math.toRadians(pos.yaw()));
 		
 		attacker.sendPacketToViewersAndSelf(new ParticlePacket(
-				Particle.SWEEP_ATTACK, false,
+				Particle.SWEEP_ATTACK, false,false,
 				pos.x() + x, pos.y() + attacker.getBoundingBox().height() * 0.5, pos.z() + z,
 				(float) x, 0, (float) z,
 				0, 0

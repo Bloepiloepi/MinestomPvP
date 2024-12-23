@@ -77,6 +77,6 @@ public class VanillaItemCooldownFeature implements ItemCooldownFeature, Registra
 	}
 	
 	protected void sendCooldownPacket(Player player, Material material, int ticks) {
-		player.getPlayerConnection().sendPacket(new SetCooldownPacket(material.id(), ticks));
+		player.getPlayerConnection().sendPacket(new SetCooldownPacket(material.namespace().toString(), ticks));
 	}
 }
